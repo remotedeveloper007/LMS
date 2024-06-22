@@ -1,0 +1,113 @@
+/* body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: transparent;
+    margin: 0;
+}
+
+.loader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+}
+
+.dot {
+    background-color: #0011ff; 
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    transform: scale(0);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+#dot1 {
+    animation-delay: 0s;
+}
+
+#dot2 {
+    animation-delay: 0.3s;
+}
+
+#dot3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+} */
+
+body {
+    /*position: relative; */ /* Ensure the body acts as the positioning context */
+    /* min-height: 100vh; */ /* Ensure the body takes at least the full viewport height */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* background-color: transparent; */ /* Optional: Set the background color of the body */
+    /* margin: 0; */ /* Remove default margin */
+    position: relative;
+    min-height: 100vh;
+    background-color: transparent;
+    margin: 0;
+}
+
+.loader {
+    position: fixed;
+    /* top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100px;
+    height: 100px; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;  /* Ensure the loader appears above other content */
+    display: flex;
+    justify-content: center; /* space-around; */
+    align-items: center;
+    /*background-color: rgba(255, 255, 255, 0.7); */ /* Semi-transparent background */
+}
+
+.dot {
+    background-color: #0011ff; /* Blue color */
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    transform: scale(0);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+#dot1 {
+    animation-delay: 0s;
+}
+
+#dot2 {
+    animation-delay: 0.3s;
+}
+
+#dot3 {
+    animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+

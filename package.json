@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.2.1",
+        "axios": "^1.6.8",
+        "laravel-vite-plugin": "^1.0",
+        "sass": "^1.77.5",
+        "sass-loader": "^14.2.1",
+        "vite": "^5.0",
+        "vite-plugin-sass": "^0.1.0"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^41.3.1",
+        "@ckeditor/ckeditor5-react": "^6.3.0",
+        "@inertiajs/react": "^1.0.16",
+        "owl.carousel": "^2.3.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-modal": "^3.16.1",
+        "react-modal-video": "^2.0.2",
+        "react-youtube": "^10.1.0",
+        "sweetalert2": "^11.6.13",
+        "uuid": "^9.0.1"
+    }
+}

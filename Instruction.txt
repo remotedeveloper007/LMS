@@ -1,0 +1,173 @@
+ServerSide Setup 
+1. composer create-project laravel/laravel dummy
+2. composer require inertiajs/inertia-laravel
+
+
+4. app.blade.php // code below 
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        @routes
+        @viteReactRefresh
+        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        @inertiaHead
+    </head>
+    <body class="font-sans antialiased">
+        @inertia
+    </body>
+</html>
+
+5. php artisan inertia:middleware
+
+6. Add below line to App\Http\Kernel.php as the last item in your web middleware group. use this process for upto Laravel 10 version.
+'web' => [
+    // ...
+    \App\Http\Middleware\HandleInertiaRequests::class,
+],
+
+6. For Laravel 11 version onward follow below instruction by adding below lines to bootstrap/app.php
+use App\Http\Middleware\HandleInertiaRequests;
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->web(append: [
+        HandleInertiaRequests::class,
+    ]);
+})
+
+7. For Laravel default naming route 
+composer require tightenco/ziggy
+
+Also add @routes in app.blade.php
+
+###========== For Laravel version 11 only ==========####
+1. Add guards and providers in config/auth.php 
+2. Create middleware for guest and authenticated routes for admin and instructor
+3. Register middleware in bootstrap/app.php 
+4. Write costome Authentication for Admin and other users 
+5. php artisan make:middleware AdminRedirectIfAuthenticated
+6. php artisan make:middleware AdminAuthenticate
+5. php artisan make:middleware InstructorRedirectIfAuthenticated
+6. php artisan make:middleware InstructorAuthenticate
+
+php artisan make:view //User/Dashboard
+php artisan make:view //User/Auth/Login
+php artisan make:view //User/Auth/Register
+
+php artisan make:view //Admin/Dashboard
+php artisan make:view //Admin/Auth/Login
+
+php artisan make:view //Instructor/Dashboard
+php artisan make:view //Instructor/Auth/Login
+php artisan make:view //Instructor/Auth/Register
+
+https://www.youtube.com/watch?v=jG5TlWtnG3A
+
+###========== //For Laravel version 11 only ==========####
+
+7. php artisan make:controller //Admin/AdminController -r
+
+8. php artisan make:controller //Admin/Auth/LoginController --model=User 
+
+9. php artisan make:controller //Instructor/InstructorController -r
+
+10. php artisan make:controller //Instructor/Auth/LoginController --model=User 
+
+11. php artisan make:controller //Instructor/Auth/RegisterController --model=User 
+
+12. php artisan make:controller //User/UserController -r
+13. php artisan make:controller //User/Auth/LoginController --model=User
+14. php artisan make:controller //User/Auth/RegisterController --model=User
+
+php artisan make:controller \\Backend\\CategoryController -r
+
+php artisan make:controller \\Backend\\SubCategoryController -r
+
+php artisan make:model SubCategory
+
+php artisan make:controller \Backend\\CourseController --model=Course
+
+php artisan make:model CourseGoal
+
+php artisan make:model CourseSection -m
+
+php artisan make:controller \Backend\\CourseSectionController --model=CourseSection
+
+php artisan make:model CourseLecture -m
+
+php artisan make:controller \Backend\\CourseLectureController --model=CourseLecture
+
+// For youtybe embeded video install package 
+npm install react-youtube
+
+import YouTube from 'react-youtube'; // Import react-youtube
+
+// For installing react-modal for youtube video modal frame
+npm install react-modal
+import Modal from 'react-modal'; // Import react-modal
+
+// And in app.jsx add below lines
+import Modal from 'react-modal';
+
+// Set app element for react-modal
+Modal.setAppElement('#app');
+
+
+
+
+
+
+
+
+
+
+
+Client Side Setup ==============================
+1. npm install react react-dom
+2. npm install @inertiajs/react
+
+3. npm install --save-dev @vitejs/plugin-react
+
+4. in vite.config.js configuration file:
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import react from '@vitejs/plugin-react';
+
+npm install sweetalert2 --save
+ 
+export default defineConfig({
+    plugins: [
+        laravel(['resources/js/app.jsx']),
+        react(),
+    ],
+});
+
+npm install uuid
+
+5. npm install
+
+6. npm run dev
+
+
+//==================== To Commit into Git Repo follow steps below ====================
+https://github.com/remotedeveloper007/LMS.git
+
+git init
+
+git add .    // to add complete files and folder
+
+git status    // to  chech commit status
+
+git commit -m "LMS"
+
+git remote add origin https://github.com/remotedeveloper007/LMS.git
+
+git push -u origin master
