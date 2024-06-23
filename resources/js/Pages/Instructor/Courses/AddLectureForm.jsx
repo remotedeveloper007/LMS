@@ -70,13 +70,7 @@ const AddLectureForm = ({ courseId, sectionId, lectureIndex, removeLectureDiv })
                             <div className="row mb-3">
                                 <label htmlFor="lecture_content" className="form-label">Lecture Content:</label>
                                 <div className="col-md-12">
-                                <CKEditor editor={ClassicEditor} data={data.content}    id="lecture_content" onChange={handleEditorChange}
-                                    // onChange={(e, editor) => {data =
-                                    //     editor.getData();
-                                    //     setData("content", data);
-                                    // }}
-                                    
-                                />
+                                    <CKEditor editor={ClassicEditor} data={data.content} onChange={handleEditorChange}  id="lecture_content"/>
                                 </div>
                             </div>
                             <div className="row mb-3">
