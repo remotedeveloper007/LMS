@@ -22,9 +22,15 @@ class CourseSectionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function getSections($id)
     {
         //
+        $sections = CourseSection::where('course_id', $id)->get();
+
+        return response()->json([
+            'status' => 200,
+            'sections' => $sections
+        ]);
     }
 
     /**
@@ -32,31 +38,17 @@ class CourseSectionController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'section_title' => 'required',
-        // ]);
-        // Validate incoming request data
-        $validator = Validator::make($request->all(), [
-            'section_title' => 'required',
-        ]);
-
-        // Check if validation fails
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator); // Pass validation errors to the view
-                //->withInput(); // Keep user input in the session
-        }
         //
         $course_section = new CourseSection();
         $course_section->course_id = $request->course_id;
         $course_section->section_title = $request->section_title;
-        // dd($course_section);
-        $course_section->save();
-        
-        return redirect()->back()->with([
-            'message' => 'Course Section added successfully',
-            'status' => 'success'
-        ]);
+    
+        if ($course_section->save()) {
+            return redirect()->route('show.course',$request->course_id)
+            ->with('message', 'Course Section added successfully')
+            ->with('status', 'success');
+        }
+    
     }
 
     /**
@@ -86,8 +78,16 @@ class CourseSectionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CourseSection $courseSection)
+    public function destroy($id)
     {
         //
+        $courseSection = CourseSection::findOrFail($id);
+
+        $courseSection->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Course Section deleted successfully!'
+        ]);
     }
 }

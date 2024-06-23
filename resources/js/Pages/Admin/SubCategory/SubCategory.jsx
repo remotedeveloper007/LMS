@@ -85,7 +85,7 @@ const SubCategory = ({ subcategories }) => {
                                                     <i className="text-primary bx bx-edit h4" />
                                                 </Link>
                                                 <span className="h4">|</span>
-                                                <a
+                                                <span
                                                     href={route(
                                                         "delete.subcategory",
                                                         subcategory.id
@@ -93,7 +93,7 @@ const SubCategory = ({ subcategories }) => {
                                                     id="delete"
                                                 >
                                                     <i className="text-danger bx bx-trash h4" />
-                                                </a>
+                                                </span>
                                             </td>
                                         </tr>
                                     ))}

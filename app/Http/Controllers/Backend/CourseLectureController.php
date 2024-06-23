@@ -29,10 +29,23 @@ class CourseLectureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        //
-        $course = Course::findOrFail($id);
+        # code... 
+        $lecture = new CourseLecture();
+        $lecture->course_id = $request->course_id;
+        $lecture->section_id = $request->section_id;
+        $lecture->lecture_title = $request->lecture_title;
+        $lecture->content = $request->content;
+        $lecture->url = $request->url;
+
+        if ($lecture->save()) {
+            # code...
+            return redirect()->back()
+                    ->with('message', 'Course lecture added successfully')
+                    ->with('status', 'success');
+        }
+
     }
 
     /**

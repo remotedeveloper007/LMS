@@ -171,3 +171,9 @@ git commit -m "LMS"
 git remote add origin https://github.com/remotedeveloper007/LMS.git
 
 git push -u origin master
+
+
+// to push into existing repository
+git clone https://github.com/remotedeveloper007/LMS.git
+
+git push -u origin master -f

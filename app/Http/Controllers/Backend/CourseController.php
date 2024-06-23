@@ -156,12 +156,10 @@ class CourseController extends Controller
     {
         //
         $course = Course::findOrFail($id);
-        $sections = CourseSection::where('course_id', $id)->get();
 
         return Inertia::render('Instructor/Courses/Show', [
             'course' => $course,
-            'description' => strip_tags($course->description),
-            'sections' => $sections
+            'description' => strip_tags($course->description)
         ]);
     }
 

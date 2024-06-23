@@ -27,9 +27,9 @@ const Category = ({ categories }) => {
                         <nav aria-label="breadcrumb">
                             <ol className="breadcrumb mb-0 p-0">
                                 <li className="breadcrumb-item">
-                                    <a href={ route('admin.dashboard') }>
+                                    <Link href={ route('admin.dashboard') }>
                                         <i className="bx bx-home-alt" />
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li
                                     className="breadcrumb-item active"
@@ -87,12 +87,12 @@ const Category = ({ categories }) => {
                                                 <i className="text-primary bx bx-edit h4" />
                                             </Link>
                                             <span className="h4">|</span>
-                                            <a
+                                            <span
                                                 href={ route('delete.category',category.id) }
                                                 id="delete"
                                             >
                                                 <i className="text-danger bx bx-trash h4" />
-                                            </a>
+                                            </span>
                                         </td>
                                     </tr>
                                   ))}

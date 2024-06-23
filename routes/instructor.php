@@ -66,15 +66,23 @@ Route::group(['prefix' => 'instructor'], function () {
         
 
         /**
-         * Route for course Section
+         * Route for CourseSectionController Group
          */
-        Route::post('add/course/section/', [CourseSectionController::class, 'store'])->name('add.course.section'); //
+        Route::controller(CourseSectionController::class)->group(function() {
+            //
+            Route::get('/course/sections/{any}', 'getSections')->name('course.section');
+
+            Route::post('/add/course/section/', 'store')->name('add.course.section'); //
+
+            Route::get('/delete/course/section/{any}', 'destroy')->name('delete.course.section');
+        });
+
 
         /**
          * Route for Course Lecture
         */
         Route::controller(CourseLectureController::class)->group(function() {
-            Route::post('add/course/lecture/{any}', 'store')->name('add.course.lecture');
+            Route::post('add/course/lecture', 'store')->name('add.course.lecture');
         });
 
     });
