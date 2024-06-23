@@ -37,10 +37,6 @@ class LoginController extends Controller
                 Auth::guard('admin')->logout();
                 // $request->session()->invalidate();
 
-                // return redirect()->route('admin.request.login')->with([
-                //     'message' => "You aren't authorized as an Admin",
-                //     'status' => 'error'
-                // ]);
                 return redirect()->back()->with([
                     'message' => "You aren't authorized as an Admin",
                     'status' => 'danger'
