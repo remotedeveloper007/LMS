@@ -9,7 +9,7 @@ import axios from "axios";
 const ShowCourse = ({ course, description }) => {
     const { flash } = usePage().props;
     
-    const { data, setData, post, reset } = useForm({
+    const { data, setData, reset } = useForm({
         course_id: course.id,
         section_id: "",
         lecture_title: "",
@@ -63,7 +63,6 @@ const ShowCourse = ({ course, description }) => {
             return updatedForms;
         });
     };
-
 
     //
     const handleSectionDelete = (e, id) => {
@@ -167,10 +166,9 @@ const ShowCourse = ({ course, description }) => {
                             </div>
                             <div>
                                 {/* Add Section form */}
-
-                            {showSectionForm && (
-                               <SectionForm courseId={course.id} toggleSectionForm={toggleSectionForm} />
-                            )}
+                                {showSectionForm && (
+                                    <SectionForm courseId={course.id} toggleSectionForm={toggleSectionForm} />
+                                )}
                                 {/* End Add Section form */}
                             </div>
                         </div>
@@ -195,44 +193,39 @@ const ShowCourse = ({ course, description }) => {
                                                     <i className="text-danger bx bx-trash h3" />
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> {/* //Lecture seationtitle end here  */}
 
                                         <div className="courseHide" id={`lectureContainer${index}`}>
                                             {lectureForms[section.id] && lectureForms[section.id].map((lecture, lectureIndex) => (
                                                 <div className="lectureDiv mb-3" key={lectureIndex}>
                                                     <hr />
                                                     <div className="d-flex justify-content-center">
-                                                        {/* <div className="mt-4 col-md-7">
-                                                            <div className="card">
-                                                                <div className="card-header d-flex  justify-content-center"> <strong>Add Lecture Form</strong></div>
-                                                                <div className="card-body">
-                                                                    <form onSubmit={(e) => handleLectureSubmit(e, section.id, lectureIndex)}>
-                                                                        <input type="hidden" name="course_id" className="form-control" value={data.course_id}/>
-                                                                        
-                                                                        <input type="hidden" name="section_id"  value={section.id} onChange={e => setData('section_id', e.target.value)}className="form-control"/>
-
-                                                                        <div className="row mb-3">
-                                                                            <label htmlFor="lecture_title" className="form-label"> Lecture Title:</label>
-                                                                            <div className="col-md-12">
-                                                                            <input type="text" name="lecture_title" value={lecture.lecture_title} className="form-control" onChange={(e) => handleLectureChange(e, section.id, lectureIndex )} placeholder="Add Lecture Title"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="row mb-3">
-                                                                            <label htmlFor="url" className="form-label">
-                                                                            Lecture Url: </label>
-                                                                            <div className="col-sm-12">
-                                                                                <input type="text" name="url" value={lecture.url} className="form-control" onChange={(e) => handleLectureChange(e, section.id, lectureIndex)} placeholder="Add Lecture Video Url"/>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="d-flex justify-content-center">
-                                                                            <button type="submit" className="btn btn-outline-primary">Save Lecture </button>
-                                                                            <button type="button" className="btn btn-outline-secondary ms-2" onClick={() => removeLectureDiv( section.id, lectureIndex)}> Cancle </button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div> */}
                                                         <AddLectureForm lecture={lecture} courseId={course.id} sectionId={section.id} lectureIndex={lectureIndex} removeLectureDiv={removeLectureDiv}/>
+                                                    </div>
+                                                  
+                                                </div>
+                                            ))}
+                                            
+                                        </div>   {/* //Lecture seation Form end here  */}
+                                        {/* Render lectures for the section */}
+                                        <div className="container">
+                                            {/* Render sections related lectures */}
+                                            {section.lectures.map((lecture, lectureIndex) => (
+                                                <div className="d-flex-1 align-items-center" key={lectureIndex}> <hr />
+                                                    <div className="row flex mb-3">
+                                                        <div className="col-md-10 d-flex-1">
+                                                            <strong>{lectureIndex + 1}. {lecture.lecture_title}</strong>
+                                                        </div>
+                                                        <div className="d-flex col-md-2 align-tems-right me-0">
+                                                            <div className="me-2">
+                                                                <span className="btn cursor-pointer"  tabIndex="0" data-bs-toggle="tooltip" data-bs-placement="auto" title="Edit Lecture" style={{ border: "none" }} >
+                                                                    <i className="text-primary bx bx-edit h3" />
+                                                                </span>
+                                                                <span className="btn cursor-pointer" style={{ border: "none" }}  title="Delete" id="delete">
+                                                                    <i className="text-danger bx bx-trash h3" />
+                                                                </span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}

@@ -156,10 +156,11 @@ class CourseController extends Controller
     {
         //
         $course = Course::findOrFail($id);
+        $description = strip_tags($course->description);
 
         return Inertia::render('Instructor/Courses/Show', [
-            'course' => $course,
-            'description' => strip_tags($course->description)
+            'course' => fn () => $course,
+            'description' => fn () => $description,
         ]);
     }
 

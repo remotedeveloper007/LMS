@@ -162,18 +162,26 @@ https://github.com/remotedeveloper007/LMS.git
 
 git init
 
-git add .    // to add complete files and folder
+git add README.md    // to add complete files and folder
 
-git status    // to  chech commit status
+git commit -m "first commit"
 
-git commit -m "LMS"
+git branch -M main // depend on branch name main/master
 
 git remote add origin https://github.com/remotedeveloper007/LMS.git
 
-git push -u origin master
+git push -u origin main  // depend on branch name main/master
 
 
 // to push into existing repository
 git clone https://github.com/remotedeveloper007/LMS.git
 
 git push -u origin master -f
+
+
+// to commit into existing repository for changes made 
+git add .
+
+git commit -m "initial commit"
+
+git push origin main

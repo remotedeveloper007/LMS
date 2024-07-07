@@ -25,7 +25,7 @@ class CourseSectionController extends Controller
     public function getSections($id)
     {
         //
-        $sections = CourseSection::where('course_id', $id)->get();
+        $sections = CourseSection::where('course_id', $id)->with('lectures')->get();
 
         return response()->json([
             'status' => 200,
