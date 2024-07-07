@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddLectureForm = ({ courseId, sectionId, lectureIndex, removeLectureDiv }) => {
+    const props = usePage().props
     const { data, setData, post, reset } = useForm({
         course_id: courseId,
         section_id: sectionId,
@@ -11,12 +12,6 @@ const AddLectureForm = ({ courseId, sectionId, lectureIndex, removeLectureDiv })
         content: '',
         url: ''
     });
-
-    // Use useState for lecture data state
-    // const [lectureData, setLectureData] = useState({
-    //     lecture_title: "",
-    //     url: ""
-    // });
 
     const handleLectureChange = (e) => {
         const { name, value } = e.target;
@@ -30,13 +25,10 @@ const AddLectureForm = ({ courseId, sectionId, lectureIndex, removeLectureDiv })
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const formData = new FormData();
-        // formData.append("course_id", data.course_id);
-        // formData.append("section_id", data.section_id);
-        // formData.append("lecture_title", data.lecture_title);
-        // formData.append("url", data.url);
 
+        //
         post(route("add.course.lecture"), {
+            _token: props.csrf_token,
             data: data,
             onSuccess: () => {
                 reset();

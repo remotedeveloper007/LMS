@@ -108,6 +108,7 @@ const Dashboard = () => {
                 </div>
                 {/*end row*/}
 
+                {/* <!--start chart row--> */}
                 <div className="row">
                     <div className="col-12 col-lg-12 d-flex">
                         <div className="card radius-10 w-100">
@@ -222,7 +223,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                {/* <!--end row--> */}
+                {/* <!--end chart row--> */}
 
                 {/*end row*/}
                 <div className="card radius-10">
