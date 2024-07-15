@@ -64,7 +64,7 @@ const Footer = () => {
                     <Link   href="#">Contact us</Link  >
                     </li>
                     <li>
-                    <Link   href="#">Become a Teacher</Link  >
+                    <Link href="#" onClick={() => window.open(route('instructor.request.login'), "_blank")}>Teach on Aduca</Link  >
                     </li>
                     <li>
                     <Link   href="#">Support</Link  >

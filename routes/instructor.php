@@ -83,6 +83,11 @@ Route::group(['prefix' => 'instructor'], function () {
         */
         Route::controller(CourseLectureController::class)->group(function() {
             Route::post('add/course/lecture', 'store')->name('add.course.lecture');
+
+            Route::post('update/course/lecture', 'update')->name('update.course.lecture');
+
+            //to delete lecture
+            Route::get('/delete/course/lecture/{any}', 'destroy')->name('delete.course.lecture');
         });
 
     });
