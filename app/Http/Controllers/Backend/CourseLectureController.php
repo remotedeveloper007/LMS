@@ -67,16 +67,36 @@ class CourseLectureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CourseLecture $courseLecture)
+    public function update(Request $request)
     {
-        //
+        # code ...
+        // dd($request->all());
+        $lectureId = $request->lecture_id;
+        $lecture = CourseLecture::findOrFail($lectureId);
+        $lecture->lecture_title = $request->lecture_title;
+        $lecture->content = $request->content;
+        $lecture->url = $request->url;
+
+        if ($lecture->save()) {
+            # code...
+            return redirect()->back()
+                    ->with('message', 'Course lecture updated successfully')
+                    ->with('status', 'success');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CourseLecture $courseLecture)
+    public function destroy($id)
     {
         //
+        $lecture = CourseLecture::findOrFail($id);
+        $lecture->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Lecture deleted successfully!'
+        ]);
     }
 }

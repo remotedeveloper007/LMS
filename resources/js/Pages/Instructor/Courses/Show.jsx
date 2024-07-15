@@ -4,6 +4,7 @@ import InstructorPanel from "../../InstructorPanel";
 import AddLectureForm from "./AddLectureForm";
 import SectionForm from "./SectionForm";
 import axios from "axios";
+import EditLectureForm from "./EditLectureForm";
 
 
 const ShowCourse = ({ course, description }) => {
@@ -20,6 +21,7 @@ const ShowCourse = ({ course, description }) => {
 
     const [showSectionForm, setShowSectionForm] = useState(false);
     const [lectureForms, setLectureForms] = useState({});
+    const [editingLecture, setEditingLecture] = useState(null); // Track which lecture is being edited
     
 
     useEffect(() => {
@@ -64,13 +66,22 @@ const ShowCourse = ({ course, description }) => {
         });
     };
 
+    const editLectureDiv = (sectionId, lectureId) => {
+        // const lectureId = sections[sectionId].lectureId;
+        setEditingLecture({ sectionId, lectureId });
+    };
+
+    const cancelEditLecture = () => {
+        setEditingLecture(null);
+    };
+
     //
     const handleSectionDelete = (e, id) => {
         e.preventDefault();
         //
         Swal.fire({
             title: "Are you sure?",
-            text: "Delete This Data?",
+            text: "Delete This Section?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -99,7 +110,52 @@ const ShowCourse = ({ course, description }) => {
                 });
             }
         });        
-    }    
+    }
+    
+    //
+    const handleLectureDelete = (e, lectureId, sectionId) => {
+        e.preventDefault();
+        //
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Delete This Lecture?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.get(`/instructor/delete/course/lecture/${lectureId}`).then((res) => {
+                    if (res.data.status === 200) {
+                        // Filter out the deleted lecture from the corresponding section
+                        const updatedSections = sections.map((section) => {
+                            if (section.id === sectionId) {
+                                // Filter out the deleted lecture
+                                const updatedLectures = section.lectures.filter((lecture) => lecture.id !== lectureId);
+                                return { ...section, lectures: updatedLectures };
+                            }
+                            return section;
+                        });
+
+                        setSections(updatedSections); // Update sections state with new array
+                        //
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.data.message,
+                        });
+                    } else {
+                        //
+                        Swal.fire("Error!", "Failed to delete course lecture. Please try again later.", "error");
+                    }
+                }).catch(() => {
+                    //
+                    Swal.fire("Error!", "An error occurred while deleting the course lecture.", "error");
+                    // console.error('Error deleting course:', error);
+                });
+            }
+        });        
+    }     
 
     return (
         <React.Fragment>
@@ -218,15 +274,31 @@ const ShowCourse = ({ course, description }) => {
                                                         </div>
                                                         <div className="d-flex col-md-2 align-tems-right me-0">
                                                             <div className="me-2">
-                                                                <span className="btn cursor-pointer"  tabIndex="0" data-bs-toggle="tooltip" data-bs-placement="auto" title="Edit Lecture" style={{ border: "none" }} >
+                                                                <span className="btn cursor-pointer"  tabIndex="0" data-bs-toggle="tooltip" data-bs-placement="auto" title="Edit Lecture" style={{ border: "none" }} onClick={() => editLectureDiv(section.id, lecture.id)} >
                                                                     <i className="text-primary bx bx-edit h3" />
                                                                 </span>
-                                                                <span className="btn cursor-pointer" style={{ border: "none" }}  title="Delete" id="delete">
+                                                                <span className="btn cursor-pointer" style={{ border: "none" }} onClick={(e) => handleLectureDelete(e, lecture.id, section.id)} title="Delete" id="delete">
                                                                     <i className="text-danger bx bx-trash h3" />
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                                                                                                                        {/* Editable lecture form */}
+                                                    {editingLecture && editingLecture.sectionId === section.id && editingLecture.lectureId === lecture.id && (
+                                                        <div className="lectureDiv mb-3">
+                                                            {/* <hr /> */}
+                                                            <div className="d-flex justify-content-center">
+                                                                <EditLectureForm
+                                                                    lecture={lecture}
+                                                                    lectureId={editingLecture.lectureId}
+                                                                    sectionId={section.id}
+                                                                    lectureIndex={lectureIndex} 
+                                                                    onCancel={cancelEditLecture}
+                                                                    cancelEditLecture={cancelEditLecture}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             ))}
                                         </div>

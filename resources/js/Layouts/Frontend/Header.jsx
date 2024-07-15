@@ -810,7 +810,7 @@ const Header = () => {
                                     <Link href="career-details.html">
                                         career details
                                     </Link>
-                                    <Link href="become-a-teacher.html">
+                                    <Link href="#" onClick={() => window.open(route('instructor.request.login'), "_blank")}>
                                         become an instructor
                                     </Link>
                                     <Link href="faq.html">
