@@ -83,6 +83,11 @@ class CourseSectionController extends Controller
         //
         $courseSection = CourseSection::findOrFail($id);
 
+        //Delete all course section related lectures
+        $courseSection->lectures()->delete();
+        // dd($section);
+
+        //Delete course section
         $courseSection->delete();
 
         return response()->json([

@@ -14,6 +14,7 @@ require __DIR__.'/instructor.php';
 
 
 Route::get('/', [FrontendController::class, 'index']);
+Route::get('/categories', [FrontendController::class, 'fetchCategories']);
 
 
 // require __DIR__.'./user.php';

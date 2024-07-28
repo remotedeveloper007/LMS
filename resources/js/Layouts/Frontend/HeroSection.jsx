@@ -171,6 +171,7 @@ const HeroSection = () => {
                     
 
                 </div>
+            </section>
 
                 {/* Modal for video play */}
                 <YouTubeVideo
@@ -179,9 +180,7 @@ const HeroSection = () => {
                     videoId={videoId}
                     onClose={() => setOpen(false)}
                 />
-
-            </section>
-
+    
         </React.Fragment>
     );
 };
