@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from '@inertiajs/react';
 import axios from 'axios';
-import Index from '../../../Layouts/Index';
 
 const CategoryArea = () => {
   const [categories, setCategories] = useState([]);
