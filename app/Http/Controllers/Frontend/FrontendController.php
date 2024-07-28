@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-
 use Inertia\Inertia;
+
 use Inertia\Response;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 
 class FrontendController extends Controller
@@ -23,9 +24,15 @@ class FrontendController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function fetchCategories()
     {
         //
+        $categories = Category::latest()->limit(6)->get();
+        // dd($categories);
+        return response()->json([
+            'categories' => $categories,
+            'status' => 200
+        ]);
     }
 
     /**

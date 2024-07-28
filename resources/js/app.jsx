@@ -5,6 +5,9 @@ import { StrictMode } from 'react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal';
+import axios from "axios";
+
+window.axios = axios;
 
 // Set app element for react-modal
 Modal.setAppElement('#app');

@@ -3,26 +3,14 @@ import Footer from '../Layouts/Frontend/Footer';
 import Header from '../Layouts/Frontend/Header';
 import HeroSection from '../Layouts/Frontend/HeroSection';
 import FeatureArea from '../Layouts/Frontend/FeatureArea';
+import CategoryArea from './Frontend/Home/CategoryArea';
+import CourseSelection from './Frontend/Home/CourseSelection';
+import StudentViewing from './Frontend/Home/StudentViewing';
+import Funfact from './Frontend/Home/Funfact';
 
 const Frontend = ({children}) => {
   return (
-    <React.Fragment>
-        {/* start cssload-loader */}
-        {/* <div className="preloader">
-            <div className="loader">
-              <svg className="spinner" viewBox="0 0 50 50">
-                <circle
-                  className="path"
-                  cx={25}
-                  cy={25}
-                  r={20}
-                  fill="none"
-                  strokeWidth={5}
-                />
-              </svg>
-            </div>
-          </div> */}
-        {/* end cssload-loader */}      
+    <React.Fragment>     
       {/* <!-- ===================  START HEADER AREA ================== --> */}
 
         <Header/>
@@ -41,10 +29,22 @@ const Frontend = ({children}) => {
 
       {/* <!--======================== END FEATURE AREA =============-->     */}
 
+      {/* ============================ START CATEGORY AREA ================= */}
 
-       <h1>Welcome to Laravel, Inertia And React js Application</h1>
+        <CategoryArea/> {/* <!-- end category-area --> */}
 
+      {/* ============================ START COURSE AREA - 1 =================== */}
+        <CourseSelection/> {/* <!-- end courses-selection-area --> */}
+      {/* ============================ END COURSE AREA - 1 ===================== */}
 
+      {/* ============================ START COURSE AREA - 2 =================== */}
+        {/* <StudentViewing/> */}
+      {/* ============================ END COURSE AREA - 2 ===================== */}
+
+      {/* ============================ START FUNFACT AREA =================== */}
+        <Funfact/>
+      {/* ============================ END FUNFACT AREA =================== */}
+ 
 
       {/* <!-- =================== START FOOTER AREA ================== --> */}
 
