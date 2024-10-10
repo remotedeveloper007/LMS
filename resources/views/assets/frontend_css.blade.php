@@ -9,5 +9,6 @@
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/bootstrap-select.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/fancybox.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/tooltipster.bundle.css') }}">
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/css/tooltipster.bundle.min.css" /> --}}
 <link rel="stylesheet" href="{{ asset('assets/frontend/css/style.css') }}">
 <!-- end inject -->

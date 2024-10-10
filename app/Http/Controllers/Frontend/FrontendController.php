@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Inertia\Inertia;
+use DB;
 
+use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -27,7 +29,8 @@ class FrontendController extends Controller
     public function fetchCategories()
     {
         //
-        $categories = Category::latest()->limit(6)->get();
+        $categories = Category::latest()->withCount('courses')->limit(6)->get();
+        // Dump the query log
         // dd($categories);
         return response()->json([
             'categories' => $categories,
@@ -46,9 +49,25 @@ class FrontendController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function fetchCourse($id)
     {
-        //
+        // Determine the query based on the ID
+        if ($id === 'all') {
+            $courses = Course::where('status', 1)->with('instructor')
+                ->orderBy('id', 'ASC')
+                ->limit(6)
+                ->get();
+        } else {
+            $courses = Course::where([
+                'category_id' => $id,
+                'status' => 1
+            ])->with('instructor')->orderBy('id', 'ASC')->limit(6)->get();
+        }
+        // dd($courses);
+        return response()->json([
+            'courses' => $courses,
+            'status' => 200
+        ], 200);
     }
 
     /**

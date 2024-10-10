@@ -10,5 +10,6 @@
 <script src="{{ asset('assets/frontend/js/datedropper.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/emojionearea.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/tooltipster.bundle.min.js') }}"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/4.2.8/js/tooltipster.bundle.min.js"></script> --}}
 <script src="{{ asset('assets/frontend/js/jquery.lazy.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
