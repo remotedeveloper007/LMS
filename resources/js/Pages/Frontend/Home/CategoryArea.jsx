@@ -1,25 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Link } from '@inertiajs/react';
-import axios from 'axios';
 
-const CategoryArea = () => {
-  const [categories, setCategories] = useState([]);
-    
-  useEffect(() => {
-    // Fetch categories when the component mounts
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get('/categories')        // Ensure the response structure matches your expectations
-            if (response.data.status === 200) {
-              setCategories(response.data.categories || []); // Set categories to an empty array if not present
-            } 
-        } catch (error) {
-            console.error('Error fetching categories: ', error);
-        }
-    }
-    fetchCategories();
-  }, [])
-  
+
+const CategoryArea = ({categories}) => {  
 
   return (
     <section className="category-area pb-90px">
@@ -58,7 +41,7 @@ const CategoryArea = () => {
                                             <h3 className="cat__title">
                                                 <Link href="#">{category.category_name}</Link>
                                             </h3>
-                                            <p className="cat__meta">9 courses</p>
+                                            <p className="cat__meta">{category.courses_count} courses</p>
                                             <Link href="#" className="btn theme-btn theme-btn-sm theme-btn-white">Explore<i className="la la-arrow-right icon ml-1"></i></Link>
                                         </div>
                                     </div>
