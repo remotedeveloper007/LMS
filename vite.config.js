@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 import path from 'path'; // Import the path module
-import sass from 'vite-plugin-sass'; // Import sass as default
+//import sass from 'vite-plugin-sass'; // Import sass as default
 
 export default defineConfig({
     plugins: [
@@ -12,7 +12,7 @@ export default defineConfig({
             refresh: true,
         }),
         react(),
-        sass (),
+        //sass (),
     ],
     resolve: {
         alias: {
