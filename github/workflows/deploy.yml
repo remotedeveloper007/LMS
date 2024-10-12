@@ -1,0 +1,47 @@
+name: Generate a build and push to another branch
+
+on:
+  push:
+    branches:
+      - main # The branch where you commit new changes
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - name: git-checkout
+        uses: actions/checkout@v3
+
+      - name: Install all dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build # The build command of your project
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: public/build # This is where your assets are generated
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+
+      - name: Deploy to Hostinger
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: './public/build/' # Path where your build artifacts are stored
+          REMOTE_HOST: '92.112.187.22'  #'your_hostinger_ip_address'
+          REMOTE_USER: 'u119635497'  #'your_ssh_user'
+          TARGET: '~/public_html/build/' # The directory on the server where the assets will be deployed
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message
