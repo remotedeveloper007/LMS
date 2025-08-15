@@ -40,8 +40,8 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: '-rltgoDzvO --delete'
           SOURCE: './public/build/' # Path where your build artifacts are stored
-          REMOTE_HOST: '92.112.187.22'  #'your_hostinger_ip_address'
-          REMOTE_USER: 'u119635497'  #'your_ssh_user'
+          REMOTE_HOST: ${{ secrets.SSH_IP_ADDRESS }}   #'your_hostinger_ip_address'
+          REMOTE_USER: ${{ secrets.SSH_USER }}  #'your_ssh_user'
           TARGET: '~/public_html/build/' # The directory on the server where the assets will be deployed
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
           MESSAGE: "Build: ({sha}) {msg}" # The commit message
