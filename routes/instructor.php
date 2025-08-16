@@ -58,7 +58,7 @@ Route::group(['prefix' => 'instructor'], function () {
 
             Route::post('/update/course/video', 'updateVideo')->name('update.video');
 
-            Route::post('/update/course/goal', 'updateCourseGoas')->name('update.course.goal');
+            Route::post('/update/course/goal', 'updateCourseGoals')->name('update.course.goal');
 
             //
             Route::get('/subcategories/{any}','getSubCategory')->name('fetch.subcategory');

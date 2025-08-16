@@ -72,10 +72,11 @@ Route::group(['prefix' => 'admin'], function () {
         });
     
         Route::controller(AdminController::class)->group(function() {
-            Route::get('/all/instructore', 'manageInstructor')->name('all.instructor');
-    
+            # code ...
+            Route::get('all/instructor', 'manageInstructor')->name('all.instructor');
+
             Route::post('update/user/status', 'updateStatus')->name('update.user.status');
-        });        
+        });
 
     });
 });

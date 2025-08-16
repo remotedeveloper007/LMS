@@ -297,26 +297,30 @@ class CourseController extends Controller
         }  
     }
 
-    public function updateCourseGoas(Request $request) {
-        $cid = $request->id;
-
-        if($request->course_goals == NULL) {
+    public function updateCourseGoals(Request $request) {
+        # code ...
+        // dd($request->all());
+        $cid = $request->course_id;
+    
+        if ($request->course_goals == NULL) {
             return redirect()->back();
-        } else {
-            CourseGoal::where('course_id', $cid)->delete();
-
-            $goals = count($request->course_goals);
-            if ($goals != NULL) {
-                # code...
-                for ($i=0; $i < $goals; $i++) { 
-                    # code...
-                    $cgoal = new CourseGoal();
-                    $cgoal->course_id = $cid;
-                    $cgoal->goal_name = $request->course_goals[$i];
-                    $cgoal->save();
-                }
-            }
         }
+
+        // Delete old goals course_id
+        CourseGoal::where('course_id', $cid)->delete();
+
+        // Insert new goals
+        foreach ($request->course_goals as $goal) {
+            # Skip empty inputs (optional) ...
+            if (empty($goal['goal_name'])) continue;
+
+            $cgoal = new CourseGoal();
+            $cgoal->course_id = $cid;
+            $cgoal->goal_name = $goal['goal_name'];
+            $cgoal->save();
+        }
+
+        return redirect()->back()->with('success', 'Goals updated successfully!');       
     }
 
     /**

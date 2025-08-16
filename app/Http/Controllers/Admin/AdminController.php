@@ -100,9 +100,9 @@ class AdminController extends Controller
 
     public function changePassword() {
         # code... 
-        $id = $this->guard()->user()->id;
-        $profile = User::find($id);
-        return view('admin.auth.change_password', get_defined_vars());
+        // $id = $this->guard()->user()->id;
+        // $profile = User::find($id);
+        // return view('admin.auth.change_password', get_defined_vars());
     }
 
     public function updatePassword(Request $request) {
@@ -143,9 +143,7 @@ class AdminController extends Controller
     }
 
     public function updateStatus(Request $request){
-        # code... 
-        return $request->all();
-
+        # code ...
         $user_id = $request->id;
         $is_check = $request->status;
 
@@ -157,11 +155,8 @@ class AdminController extends Controller
             $user->save();
         }
 
-        // return response()->json([
-        //     'message' => 'User status updated.',
-        //     'status' => ($user->status) ? 1 : 0
-        // ]);
-        return redirect()->route('all.instructor'); 
+
+        return redirect()->route('all.instructor');     
     }
 
     /**

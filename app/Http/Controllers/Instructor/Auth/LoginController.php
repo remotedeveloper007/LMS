@@ -46,6 +46,17 @@ class LoginController extends Controller
                 ]);
             }
 
+            if (Auth::guard('instructor')->user()->status !== '1') {
+                # code...
+                Auth::guard('instructor')->logout();
+
+                //
+                return redirect()->back()->with([
+                    'message' => "Your account is inactive, contact support team.",
+                    'status' => 'danger'
+                ]);
+            }            
+
             $request->session()->regenerate();
  
             return redirect()->route('instructor.dashboard');

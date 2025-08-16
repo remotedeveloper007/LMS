@@ -5,39 +5,55 @@ import { v4 as uuidv4 } from "uuid";
 const EditCourseGoals = ({ course, goals }) => {
     let { data, setData, post, errors, reset } = useForm({
         //
-        // course_goals: Object.fromEntries(goals.map(goal => [goal.id, ''])),
-        //course_goals: Object.fromEntries(goals.map(goal => [goal.id, goal.goal_name])),
         course_goals: goals, // Initialize course_goals as an empty object
         course_id: course.id, // Initialize subcategory_id in form data
     });
 
-    const [goalFields, setGoalFields] = useState([{ id: uuidv4(), value: "" }]); // Initialize with a unique ID
-
     const handleAddGoalField = () => {
-        const newId = uuidv4(); // Generate a unique ID
-        setGoalFields([...goalFields, { id: newId, value: "" }]);
-    };
+        const newGoal = {
+            id: uuidv4(), // temporary unique ID
+            course_id: course.id,
+            goal_name: "",
+        };
 
-    const handleRemoveGoalField = (id) => {
-        const updatedFields = goalFields.filter((field) => field.id !== id);
-        setGoalFields(updatedFields);
-    };
+        setData((prevData) => ({
+            ...prevData,
+            course_goals: [...prevData.course_goals, newGoal],
+            course_id: prevData.course_id, // ✅ preserve course_id
+        }));
+    };    
 
-    const handleChange = (e) => {
+    const handleRemoveGoal = (id) => {
+        const updatedGoals = data.course_goals.filter((goal) => goal.id !== id);
+
+        setData((prevData) => ({
+            ...prevData,
+            course_goals: updatedGoals,
+            course_id: prevData.course_id, // ✅ preserve course_id
+        }));
+    };    
+
+    const handleChange = (e, id) => {
         e.persist();
 
-        setData((prevData) => ({...prevData, [e.target.name]: e.target.value}))
+        const updatedGoals = data.course_goals.map((goal) =>
+            goal.id === id ? { ...goal, goal_name: e.target.value } : goal
+        );
 
-        // setData((prevData) => ({...prevData,course_goals: {...prevData.course_goals, [e.target.name]: e.target.value}}));
-    }
-    // console.log(goals);
-    // console.log("Course Goals:", data.course_goals);
+        // setData((prevData) => ({...prevData, [e.target.name]: e.target.value}));
+        setData((prevData) => ({ 
+            ...prevData, 
+            course_goals: updatedGoals, 
+            course_id: prevData.course_id, // ✅ preserve course_id
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         post(route('update.course.goal'))
     }
+
     return (
         <React.Fragment>
             {/* ======================== */}
@@ -64,14 +80,9 @@ const EditCourseGoals = ({ course, goals }) => {
                                                     name={`course_goals[${goal.id}]`}
                                                     id={`goals${goal.id}`}
                                                     className="form-control"
-                                                    value={data.course_goals[goal.id]?.goal_name || ""}
-                                                    // value={(() => {
-                                                    //     const goalData = data.course_goals[goal.id];
-                                                    //     console.log("Goal ID:", goal.id, "Goal Data:", goalData);
-                                                    //     return goalData?.goal_name || "";
-                                                    // })()}
+                                                    value={goal.goal_name}
                                                     placeholder="Goals"
-                                                    onChange={handleChange}
+                                                    onChange={(e) => handleChange(e, goal.id)}
                                                 />
                                             </div>
 
@@ -80,11 +91,7 @@ const EditCourseGoals = ({ course, goals }) => {
                                                 <div className="col-sm-1 mt-1">
                                                     <span
                                                         className="cursor-pointer"
-                                                        onClick={() =>
-                                                            handleRemoveGoalField(
-                                                                goal.id
-                                                            )
-                                                        }
+                                                        onClick={() => handleRemoveGoal(goal.id)}
                                                     >
                                                         <i className="text-danger bx bx-trash h3" />
                                                     </span>
